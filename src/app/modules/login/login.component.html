@@ -1,0 +1,39 @@
+<section class="home">
+  <div class="home__content">
+    <h1 class="home__title">To-Do</h1>
+
+    <form [formGroup]="form" class="home__form">
+      <div class="home__form-content">
+        <h1>Entrar</h1>
+
+        <p>
+          <mat-form-field [style.width.px]="400" appearance="outline">
+            <mat-label>E-mail</mat-label>
+            <input
+              formControlName="email"
+              matInput
+              placeholder="Insira seu e-mail"
+            />
+          </mat-form-field>
+        </p>
+
+        <div class="home__form-senha">
+          <p>
+            <mat-form-field [style.width.px]="400" appearance="outline">
+              <mat-label>Senha</mat-label>
+              <input
+                formControlName="senha"
+                matInput
+                placeholder="Insira seu e-mail"
+              />
+            </mat-form-field>
+          </p>
+        </div>
+
+        <small>Esqueceu sua senha?</small>
+      </div>
+
+      <div (click)="login()" class="login-button">Entrar</div>
+    </form>
+  </div>
+</section>

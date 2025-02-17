@@ -1,0 +1,36 @@
+$themes: (
+  theme-blue: (
+    primary: #354daf,
+    background: #fbfcff,
+    success: #63b995,
+    warning: #ffe066,
+    danger: #c1666b,
+    white-100: #fcfcfc,
+    gray-50: #e1e1e1a3,
+    gray-100: #737373,
+    black-100: #2d2d2d,
+    text-color: #2d2d2d,
+  ),
+);
+
+@mixin themify($themes) {
+  @each $theme-name, $color-list in $themes {
+    .#{$theme-name} & {
+      $theme-map: () !global;
+      @each $name, $color in $color-list {
+        $value: map-get(map-get($themes, $theme-name), "#{$name}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $name: $value,
+          )
+        ) !global;
+      }
+      @content;
+    }
+  }
+}
+
+@function themed($color) {
+  @return map-get($theme-map, $color);
+}
