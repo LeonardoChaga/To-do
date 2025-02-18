@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
-      withCredentials: true, // Garante que cookies/token sejam enviados (se necessário)
+      withCredentials: true,
     });
 
     return next.handle(clonedRequest);
