@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       this._loginS.login(this.form.value).subscribe({
         next: (res: Auth) => {
-          console.log('Usuário logado com sucesso', res);
           sessionStorage.setItem(USER_STORAGE, JSON.stringify(res));
 
           this._router.navigate(['/kanban']);

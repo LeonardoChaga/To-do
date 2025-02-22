@@ -1,6 +1,23 @@
-<mat-drawer #drawer class="sidebar" mode="side">
-  <p>Auto-resizing sidenav</p>
-  <button (click)="showFiller = !showFiller" mat-raised-button>
-    Toggle extra text
-  </button>
-</mat-drawer>
+<mat-sidenav-container class="sidenav__container">
+  <mat-sidenav class="sidenav" #sidenav mode="side" opened>
+    <header class="sidenav__header">
+      <img src="../../../../assets/logo-white.png" alt="logo" />
+      <h1>Olá, {{ usuario?.nome }}!</h1>
+    </header>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/kanban/" routerLinkActive="active"
+        ><p>Kanban</p></a
+      >
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="sidenav__content">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <i class="ri-menu-line"></i>
+    </button>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

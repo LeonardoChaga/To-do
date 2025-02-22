@@ -1,5 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { StorageService } from '../../../shared/services/storage.service';
+import { Usuario } from '../../../modules/login/model/usuario.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,28 +9,12 @@ import { MediaMatcher } from '@angular/cdk/layout';
   styleUrls: ['./sidebar.component.scss'],
   standalone: false,
 })
-export class SidebarComponent {
-  showFiller = false;
+export class SidebarComponent implements OnInit {
+  public usuario?: Usuario;
 
-  protected readonly isMobile = signal(true);
+  constructor(private _storageS: StorageService) {}
 
-  private readonly _mobileQuery: MediaQueryList;
-  private readonly _mobileQueryListener: () => void;
-
-  constructor() {
-    const media = inject(MediaMatcher);
-
-    this._mobileQuery = media.matchMedia('(max-width: 600px)');
-    this.isMobile.set(this._mobileQuery.matches);
-    this._mobileQueryListener = () =>
-      this.isMobile.set(this._mobileQuery.matches);
-    this._mobileQuery.addEventListener('change', this._mobileQueryListener);
+  ngOnInit(): void {
+    this.usuario = this._storageS.getUsuarioInfo();
   }
-
-  ngOnDestroy(): void {
-    this._mobileQuery.removeEventListener('change', this._mobileQueryListener);
-  }
-
-  protected readonly shouldRun =
-    /(^|.)(stackblitz|webcontainer).(io|com)$/.test(window.location.host);
 }

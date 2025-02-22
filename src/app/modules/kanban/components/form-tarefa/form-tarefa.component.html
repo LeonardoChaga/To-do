@@ -1,0 +1,71 @@
+<section class="form-tarefa">
+  <header class="form-tarefa__header">
+    <h1>Cadastrar tarefa</h1>
+    <button
+      mat-mini-fab
+      aria-label="Fechar formulário."
+      matTooltip="Fechar formulário."
+      matTooltipClass="tooltip"
+      (click)="closeDialog()"
+    >
+      <i class="ri-close-line"></i>
+    </button>
+  </header>
+
+  <mat-dialog-content class="form-tarefa__content">
+    <form [formGroup]="form">
+      <div>
+        <mat-form-field [style.width.px]="450" appearance="outline">
+          <mat-label>Título</mat-label>
+          <input
+            formControlName="titulo"
+            matInput
+            placeholder="Insira um título"
+          />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field [style.width.px]="450" appearance="outline">
+          <mat-label>Descrição</mat-label>
+          <textarea
+            formControlName="descricao"
+            matInput
+            placeholder="Insira uma descrição."
+          ></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="prioridade-prazo">
+        <div>
+          <mat-form-field [style.width.px]="220" appearance="outline">
+            <mat-label>Prioridade</mat-label>
+            <mat-select formControlName="prioridade">
+              @for (prioridade of comboPrioridade; track prioridade) {
+              <mat-option [value]="prioridade.id">{{
+                prioridade.descricao
+              }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field [style.width.px]="220" appearance="outline">
+            <mat-label>Prazo</mat-label>
+            <input formControlName="prazo" matInput [matDatepicker]="picker" />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+
+    <div (click)="salvar()" matTooltip="Salvar tarefa." class="btn-salvar">
+      Salvar
+    </div>
+  </mat-dialog-content>
+</section>

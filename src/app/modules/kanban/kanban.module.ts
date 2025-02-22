@@ -7,9 +7,16 @@ import { RouterModule } from '@angular/router';
 import { LayoutModule } from '../../core/layout/layout.module';
 import { KanbanComponent } from './kanban.component';
 import { KanbanRoutingModule } from './kanban.routing';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormTarefaComponent } from './components/form-tarefa/form-tarefa.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
-  declarations: [KanbanComponent],
+  declarations: [KanbanComponent, FormTarefaComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -19,8 +26,14 @@ import { KanbanRoutingModule } from './kanban.routing';
     RouterModule,
     MatFormFieldModule,
     MatInputModule,
-    LayoutModule
+    LayoutModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatDatepickerModule,
   ],
-  exports: [KanbanComponent],
+  exports: [KanbanComponent, FormTarefaComponent],
 })
 export class KanbanModule {}

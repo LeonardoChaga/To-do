@@ -1,7 +1,7 @@
 .home {
   height: 100vh;
   width: 100%;
-  background-color: #354daf;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,12 +15,22 @@
     gap: 1em;
 
     .home__title {
-      color: #fbfcff;
-      font-size: 6em;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-right: 3em;
+      
+      h1 {
+        color: #2e8bf5;
+        font-size: 2em;
+      }
+      img {
+        width: 100px;
+      }
     }
 
     .home__form {
-      background-color: #fbfcff;
       padding: 2em;
       border-radius: 10px;
       display: flex;
@@ -43,14 +53,14 @@
           flex-direction: column;
           align-items: flex-end;
           font-weight: 700;
-          color: #354daf;
+          color: #2e8bf5;
           cursor: pointer;
         }
       }
 
       .login-button {
         cursor: pointer;
-        background-color: #354daf;
+        background-color: #2e8bf5;
         color: white;
         padding: 10px 20px;
         text-align: center;

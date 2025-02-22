@@ -1,11 +1,30 @@
+@use "@angular/material" as mat;
+
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter";
 }
 
 body {
-	overflow: hidden;
-    font-family: 'Inter';
+  overflow: hidden;
+}
 
+span {
+  font-family: "Inter" !important;
+}
+
+:root {
+  @include mat.select-overrides(
+    (
+      trigger-text-font: "Inter",
+    )
+  );
+
+  @include mat.tooltip-overrides(
+    (
+      supporting-text-font: "Inter",
+    )
+  );
 }

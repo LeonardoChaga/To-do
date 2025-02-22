@@ -1,0 +1,40 @@
+.form-tarefa {
+  padding: 1em;
+
+  .form-tarefa__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+    margin: 1em 1.3em 0 1.3em;
+  }
+
+  .form-tarefa__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    
+    form {
+      display: flex;
+      flex-direction: column;
+
+      .prioridade-prazo {
+        display: flex;
+        justify-content: center;
+        gap: 0.8em;
+      }
+    }
+
+    .btn-salvar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 10em;
+      height: 2.5em;
+      cursor: pointer;
+      border-radius: 10px;
+      background-color: #001630;
+      color: #ffff;
+    }
+  }
+}

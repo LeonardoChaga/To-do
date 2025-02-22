@@ -1,0 +1,62 @@
+.sidenav__container {
+  height: 100vh;
+  background-color: #fbfcff;
+
+  .sidenav {
+    background-color: #001630;
+    mat-nav-list {
+      padding: 1.5em;
+
+      a {
+        color: white;
+        border-radius: 10px;
+
+        &:hover {
+          background-color: rgb(255 255 255 / 38%) !important;
+          color: white !important;
+        }
+
+        &:focus {
+          background-color: rgb(255 255 255 / 38%) !important;
+          color: white !important;
+        }
+
+        &.active {
+          background-color: rgb(255 255 255 / 38%) !important;
+          color: white !important;
+        }
+
+        p {
+          font-family: "Inter" !important;
+          font-weight: 600;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .sidenav__header {
+    display: flex;
+    align-items: center;
+
+    h1 {
+      font-size: 18px;
+      color: #ffff;
+    }
+    img {
+      width: 100px;
+    }
+  }
+
+  .sidenav__content {
+    button {
+      .icon {
+        width: auto;
+      }
+    }
+  }
+}
+
+.content {
+  padding: 16px;
+}
