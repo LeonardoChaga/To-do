@@ -11,7 +11,7 @@ export class StorageService {
 
   getUsuarioInfo = (): Auth => {
     const user = sessionStorage.getItem(USER_STORAGE);
-    return user ? JSON.parse(user) : null;
+    return user ? JSON.parse(user) : {};
   };
 
   deleteUsuarioInfoStorage = () => sessionStorage.removeItem(USER_STORAGE);

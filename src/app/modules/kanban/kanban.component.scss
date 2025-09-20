@@ -18,4 +18,137 @@
       }
     }
   }
+
+  .kanban-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+    gap: 1em;
+    justify-content: center;
+    padding: 1em;
+
+    .coluna-kanban {
+      display: flex;
+      flex-direction: column;
+      background: #dfd9d9;
+      border-radius: 10px;
+      padding: 1em;
+      width: 100%;
+
+      p {
+        font-weight: 500;
+        color: #4b4b4b;
+        margin-bottom: 1em;
+      }
+
+      .tarefas-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        min-height: 100px;
+        padding: 1em;
+        background: #f5f5f5;
+        border-radius: 10px;
+        border: 2px #ccc;
+        transition: background 0.2s;
+
+        &.cdk-drop-list-dragging {
+          background: #e0e0e0;
+        }
+
+        .tarefa-card {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0 4px 10px rgb(0 0 0 / 30%);
+          padding: 1em;
+          border-radius: 10px;
+          background-color: white;
+          cursor: grab;
+          transition: transform 0.2s, box-shadow 0.2s;
+          gap: 1em;
+
+          .tarefa-card__header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            .prioridade-card {
+              padding: 0.2em;
+              border-radius: 15px;
+              width: 80px;
+              text-align: center;
+              color: white;
+              font-size: 14px;
+            }
+          }
+
+          .tarefa-card__content {
+            .prazo {
+              color: gray;
+              display: flex;
+              align-items: center;
+              gap: 0.3em;
+            }
+          }
+
+          &:active {
+            cursor: grabbing;
+            transform: scale(1.05);
+          }
+        }
+      }
+    }
+  }
+}
+
+.cdk-drag-preview {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 30%);
+  padding: 1em;
+  border-radius: 10px;
+  background-color: white;
+  cursor: grabbing !important;
+  gap: 1em;
+
+  .tarefa-card__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    .prioridade-card {
+      padding: 0.2em;
+      border-radius: 15px;
+      width: 80px;
+      text-align: center;
+      color: white;
+      font-size: 14px;
+    }
+  }
+
+  .tarefa-card__content {
+    .prazo {
+      color: gray;
+      display: flex;
+      align-items: center;
+      gap: 0.3em;
+    }
+  }
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.3;
+  background: lightgray;
+  border-radius: 10px;
+  padding: 1em;
+  width: 100%;
+}
+
+.cdk-drag-animating {
+  transition: transform 0.2s ease-in-out;
 }

@@ -18,7 +18,7 @@ export class Tarefa {
   descricao?: string = undefined;
 
   @JsonProperty()
-  prioridade?: prioridadeTarefaEnum = undefined;
+  prioridade: prioridadeTarefaEnum = prioridadeTarefaEnum.BAIXA;
 
   @JsonProperty()
   status?: tarefaStatusEnum = undefined;

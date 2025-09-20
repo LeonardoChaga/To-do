@@ -1,19 +1,22 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { LayoutModule } from '../../core/layout/layout.module';
+import { FormTarefaComponent } from './components/form-tarefa/form-tarefa.component';
 import { KanbanComponent } from './kanban.component';
 import { KanbanRoutingModule } from './kanban.routing';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDialogModule } from '@angular/material/dialog';
-import { FormTarefaComponent } from './components/form-tarefa/form-tarefa.component';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { tarefaPrioridadePipe } from './pipe/tarefa-prioridade.pipe';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [KanbanComponent, FormTarefaComponent],
@@ -33,6 +36,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatDialogModule,
     MatSelectModule,
     MatDatepickerModule,
+    DragDropModule,
+    tarefaPrioridadePipe,
+    MatDividerModule,
   ],
   exports: [KanbanComponent, FormTarefaComponent],
 })

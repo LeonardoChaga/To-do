@@ -2,17 +2,55 @@
   <header class="quadro-kanban__header">
     <h1>Quadro Kanban</h1>
     <div>
-      <div class="example-button-container">
+      <div>
         <button
           mat-mini-fab
           aria-label="Cadastrar tarefa."
           matTooltip="Cadastrar tarefa."
           matTooltipClass="tooltip"
-          (click)="openDialog()"
+          (click)="openForm()"
         >
           <i class="ri-add-fill"></i>
         </button>
       </div>
     </div>
   </header>
+
+  <div class="kanban-container">
+    <div *ngFor="let coluna of comboTarefaStatus" class="coluna-kanban">
+      <p>{{ coluna.descricao }}</p>
+      <div
+        cdkDropList
+        [cdkDropListData]="getTarefaByStatus(coluna.id)"
+        [cdkDropListConnectedTo]="dropLists"
+        class="tarefas-list"
+        (cdkDropListDropped)="drop($event, coluna.id)"
+        [id]="'dropList' + coluna.id"
+      >
+        <div
+          *ngFor="let tarefa of getTarefaByStatus(coluna.id)"
+          class="tarefa-card"
+          cdkDrag
+        >
+          <header class="tarefa-card__header">
+            <div
+              class="prioridade-card"
+              [ngStyle]="{
+                'background-color': getPrioridadeColor(tarefa.prioridade)
+              }"
+            >
+              {{ tarefa.prioridade | tarefaPrioridade }}
+            </div>
+            <h1>{{ tarefa.titulo }}</h1>
+          </header>
+          <div class="tarefa-card__content">
+            <div class="prazo">
+              <i class="ri-timer-2-line"></i>
+              <small>{{ tarefa.prazo | date }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
