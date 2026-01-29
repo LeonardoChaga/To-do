@@ -7,13 +7,30 @@
     justify-content: center;
     justify-content: space-between;
     margin: 1em 1.3em 0 1.3em;
+
+    h1 {
+      font-size: 20px;
+    }
+
+    .close-btn {
+      padding: 0.5rem;
+      border-radius: 100%;
+      cursor: pointer;
+      border: none;
+      font-size: 19px;
+      background-color: transparent;
+    }
+
+    .close-btn:hover {
+      background-color: #e7e7e7;
+    }
   }
 
   .form-tarefa__content {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    
+
     form {
       display: flex;
       flex-direction: column;
@@ -25,16 +42,43 @@
       }
     }
 
-    .btn-salvar {
+    .action-btns {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 10em;
-      height: 2.5em;
-      cursor: pointer;
-      border-radius: 10px;
-      background-color: #001630;
-      color: #ffff;
+      justify-content: space-between;
+
+      .btn-salvar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 10em;
+        height: 3.5em;
+        cursor: pointer;
+        border-radius: 4px;
+        border: none;
+        background-color: #001630;
+        color: #ffff;
+      }
+
+      .btn-remover {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 10em;
+        border: 1px solid red;
+        height: 3.5em;
+        cursor: pointer;
+        border-radius: 4px;
+        background-color: #ffffff;
+        color: #ff0000;
+      }
+
+      .btn-salvar:hover {
+        background-color: #275489;
+      }
+
+      .btn-remover:hover {
+        background-color: #ffdfdf;
+      }
     }
   }
 }

@@ -34,4 +34,7 @@ export class Tarefa {
 
   @JsonProperty()
   usuarioCriacao?: string = undefined;
+
+  @JsonProperty()
+  ordem: number = 0;
 }

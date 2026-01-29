@@ -82,13 +82,13 @@ class LoginBusiness(
     }
 
 
-private fun refreshToken() =
-    Base64.getEncoder().encodeToString(Random.nextBytes(256)).replace("\\W".toRegex(), "")
+    private fun refreshToken() =
+        Base64.getEncoder().encodeToString(Random.nextBytes(256)).replace("\\W".toRegex(), "")
 
-private fun accessToken(idUsuario: String): String =
-    JWT.create()
-        .withSubject(idUsuario)
-        .withClaim("datasource", "b1")
-        .withExpiresAt(OffsetDateTime.now().plusMinutes(if (dev) 10_000 else 10_000).toInstant())
-        .sign(Algorithm.HMAC512("58sfF3544rSFG90G"))
+    private fun accessToken(idUsuario: String): String =
+        JWT.create()
+            .withSubject(idUsuario)
+            .withClaim("datasource", "b1")
+            .withExpiresAt(OffsetDateTime.now().plusMinutes(if (dev) 10_000 else 10_000).toInstant())
+            .sign(Algorithm.HMAC512("58sfF3544rSFG90G"))
 }

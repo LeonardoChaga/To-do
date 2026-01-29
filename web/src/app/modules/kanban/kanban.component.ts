@@ -52,6 +52,16 @@ export class KanbanComponent implements OnInit {
     });
   }
 
+  editTask(tarefa: Tarefa) {
+    const dialogRef = this.dialog.open(FormTarefaComponent, {
+      data: { tarefa },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this._getTasks();
+    });
+  }
+
   drop(event: CdkDragDrop<any[]>, novoStatus: number) {
     const prevContainer = event.previousContainer;
     const currContainer = event.container;
@@ -60,19 +70,33 @@ export class KanbanComponent implements OnInit {
       moveItemInArray(
         currContainer.data,
         event.previousIndex,
-        event.currentIndex
+        event.currentIndex,
       );
+
+      const movedTask = currContainer.data[event.previousIndex];
+      movedTask.index = event.currentIndex;
+      movedTask.status = novoStatus;
     } else {
       const movedTask = prevContainer.data[event.previousIndex];
       movedTask.status = novoStatus;
+
+      this._tarefaS.alterarStatusTarefa(movedTask).subscribe();
 
       transferArrayItem(
         prevContainer.data,
         currContainer.data,
         event.previousIndex,
-        event.currentIndex
+        event.currentIndex,
       );
     }
+
+    const tasks = currContainer.data.map((t, index) => ({
+      ...t,
+      status: novoStatus,
+      ordem: index,
+    }));
+
+    this._tarefaS.alterarOrdemTarefa(tasks).subscribe();
   }
 
   getTarefaByStatus(status: tarefaStatusEnum) {

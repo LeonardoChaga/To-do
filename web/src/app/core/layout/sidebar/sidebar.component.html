@@ -1,5 +1,11 @@
 <mat-sidenav-container class="sidenav__container">
-  <mat-sidenav class="sidenav" #sidenav mode="side" opened>
+  <mat-sidenav
+    [style.border-radius]="'0'"
+    class="sidenav"
+    #sidenav
+    mode="side"
+    opened
+  >
     <header class="sidenav__header">
       <img src="../../../../assets/logo-white.png" alt="logo" />
       <h1>Olá, {{ usuario?.nome }}!</h1>

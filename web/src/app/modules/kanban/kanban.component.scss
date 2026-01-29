@@ -1,20 +1,26 @@
 .quadro-kanban {
   .quadro-kanban__header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 1em;
+    margin-right: 1rem;
+    margin-left: 1rem;
 
-    button {
-      background-color: #001630;
-      border-radius: 100%;
+    h1 {
+      font-size: 20px;
+    }
 
-      i {
-        color: #ffff;
-      }
+    .add-task-btn {
+      background-color: white;
+      border: 1px solid #001630;
+      padding: 0.5rem;
+      cursor: pointer;
+      color: #001630;
+      font-size: 15px;
 
       &:hover {
-        background-color: rgb(105, 105, 105) !important;
-        color: rgb(207, 207, 207) !important;
+        background-color: #003a8133;
       }
     }
   }
@@ -64,32 +70,39 @@
           border-radius: 10px;
           background-color: white;
           cursor: grab;
-          transition: transform 0.2s, box-shadow 0.2s;
+          transition:
+            transform 0.2s,
+            box-shadow 0.2s;
           gap: 1em;
 
-          .tarefa-card__header {
+          &__header {
             display: flex;
             flex-direction: column;
-            gap: 0.5em;
+            gap: 1em;
             align-items: flex-start;
             justify-content: flex-start;
 
+            h1 {
+              font-size: 18px;
+            }
+
             .prioridade-card {
-              padding: 0.2em;
-              border-radius: 15px;
+              padding: 0.1em;
+              border-radius: 5px;
               width: 80px;
               text-align: center;
               color: white;
-              font-size: 14px;
+              font-size: 12px;
             }
           }
 
-          .tarefa-card__content {
+          &__content {
             .prazo {
               color: gray;
               display: flex;
               align-items: center;
               gap: 0.3em;
+              font-size: 15px;
             }
           }
 

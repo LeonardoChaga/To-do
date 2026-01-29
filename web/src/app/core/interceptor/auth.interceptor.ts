@@ -104,11 +104,13 @@ function handle401Error(
 function setRequestAccessToken(req: any, storageService: StorageService): any {
   if (!req.url.includes('/usuario/update-token')) {
     const accessToken = storageService.getUsuarioInfo()?.accessToken;
-    return req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    if (accessToken) {
+      return req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    }
   }
   return req;
 }

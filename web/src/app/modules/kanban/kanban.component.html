@@ -1,19 +1,16 @@
 <section class="quadro-kanban">
   <header class="quadro-kanban__header">
     <h1>Quadro Kanban</h1>
-    <div>
-      <div>
-        <button
-          mat-mini-fab
-          aria-label="Cadastrar tarefa."
-          matTooltip="Cadastrar tarefa."
-          matTooltipClass="tooltip"
-          (click)="openForm()"
-        >
-          <i class="ri-add-fill"></i>
-        </button>
-      </div>
-    </div>
+
+    <button
+      class="add-task-btn"
+      aria-label="Cadastrar tarefa."
+      matTooltip="Cadastrar tarefa."
+      matTooltipClass="tooltip"
+      (click)="openForm()"
+    >
+      Adicionar tarefa
+    </button>
   </header>
 
   <div class="kanban-container">
@@ -31,12 +28,13 @@
           *ngFor="let tarefa of getTarefaByStatus(coluna.id)"
           class="tarefa-card"
           cdkDrag
+          (click)="editTask(tarefa)"
         >
           <header class="tarefa-card__header">
             <div
               class="prioridade-card"
               [ngStyle]="{
-                'background-color': getPrioridadeColor(tarefa.prioridade)
+                'background-color': getPrioridadeColor(tarefa.prioridade),
               }"
             >
               {{ tarefa.prioridade | tarefaPrioridade }}

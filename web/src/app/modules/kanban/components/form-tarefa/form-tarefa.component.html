@@ -1,9 +1,9 @@
 <section class="form-tarefa">
   <header class="form-tarefa__header">
-    <h1>Cadastrar tarefa</h1>
+    <h1>{{ this.editForm ? "Editar Tarefa" : "Cadastrar tarefa" }}</h1>
 
     <button
-      mat-mini-fab
+      class="close-btn"
       aria-label="Fechar formulário."
       matTooltip="Fechar formulário."
       matTooltipClass="tooltip"
@@ -43,9 +43,9 @@
             <mat-label>Prioridade</mat-label>
             <mat-select formControlName="prioridade">
               @for (prioridade of comboPrioridade; track prioridade) {
-              <mat-option [value]="prioridade.id">{{
-                prioridade.descricao
-              }}</mat-option>
+                <mat-option [value]="prioridade.id">{{
+                  prioridade.descricao
+                }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -65,8 +65,23 @@
       </div>
     </form>
 
-    <div (click)="salvar()" matTooltip="Salvar tarefa." class="btn-salvar">
-      Salvar
+    <div [style.width]="this.editForm ? '100%' : 'auto'" class="action-btns">
+      <button
+        *ngIf="this.editForm"
+        (click)="removeTask()"
+        matTooltip="Remover tarefa"
+        class="btn-remover"
+      >
+        Remover tarefa
+      </button>
+
+      <button
+        (click)="saveOrEditTask()"
+        [matTooltip]="this.editForm ? 'Editar tarefa' : 'Cadastrar tarefa'"
+        class="btn-salvar"
+      >
+        {{ this.editForm ? "Editar" : "Cadastrar" }}
+      </button>
     </div>
   </mat-dialog-content>
 </section>

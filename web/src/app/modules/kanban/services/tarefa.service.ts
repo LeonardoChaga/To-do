@@ -16,7 +16,26 @@ export class TarefaService {
     return this._http.post<Tarefa>(`${this.url}/tarefa`, tarefa);
   }
 
+  editarTarefa(tarefa: Tarefa): Observable<Tarefa> {
+    return this._http.put<Tarefa>(`${this.url}/tarefa`, tarefa);
+  }
+
+  removerTarefa(tarefa: string): Observable<string> {
+    return this._http.delete<string>(`${this.url}/tarefa/${tarefa}`);
+  }
+
   getTarefas(): Observable<Tarefa[]> {
     return this._http.get<Tarefa[]>(`${this.url}/tarefa`);
+  }
+
+  alterarStatusTarefa(tarefa: Tarefa): Observable<Tarefa> {
+    return this._http.post<Tarefa>(`${this.url}/tarefa/alterar-status`, tarefa);
+  }
+
+  alterarOrdemTarefa(tarefa: Tarefa[]): Observable<Tarefa[]> {
+    return this._http.post<Tarefa[]>(
+      `${this.url}/tarefa/alterar-ordem`,
+      tarefa,
+    );
   }
 }

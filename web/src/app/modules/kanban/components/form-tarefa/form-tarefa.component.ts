@@ -22,6 +22,7 @@ import { SwalAlertService } from '../../../../shared/services/swal.service';
 export class FormTarefaComponent implements OnInit {
   public form!: FormGroup;
   public comboPrioridade = COMBO_PRIORIDADE_TAREFA;
+  public editForm: boolean = false;
 
   readonly dialogRef = inject(MatDialogRef<FormTarefaComponent>);
   readonly data = inject<any>(MAT_DIALOG_DATA);
@@ -29,24 +30,78 @@ export class FormTarefaComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _TarefaS: TarefaService,
-    private _swalS: SwalAlertService
+    private _swalS: SwalAlertService,
   ) {}
 
   ngOnInit(): void {
     this.form = this._fb.group(new Tarefa());
+
+    this._prepareFormToEditTask();
   }
 
   closeDialog(): void {
     this.dialogRef.close();
   }
 
-  salvar() {
+  saveOrEditTask() {
+    if (this.editForm) {
+      this._editTask();
+    } else {
+      this._saveTask();
+    }
+  }
+
+  removeTask() {
+    this._swalS
+      .confirmAlert(
+        'Aviso',
+        'Tem certeza que deseja remover a tarefa? Este registro será perdido e não poderá ser recuperado.',
+        'question',
+      )
+      .then((res) => {
+        if (res) {
+          this._TarefaS.removerTarefa(this.data.tarefa.id).subscribe({
+            next: () => {
+              this._swalS.basicAlert(
+                'Sucesso!',
+                'Registro removido com sucesso!',
+                'info',
+              );
+              this.closeDialog();
+            },
+          });
+        }
+      });
+  }
+
+  private _prepareFormToEditTask() {
+    this.editForm = this.data.tarefa;
+
+    if (this.editForm) {
+      this.form.patchValue(this.data.tarefa);
+    }
+  }
+
+  private _saveTask() {
     this._TarefaS.salvarTarefa(this.form.value).subscribe({
       next: () => {
         this._swalS.basicAlert(
           'Sucesso!',
           'Registro salvo com sucesso!',
-          'info'
+          'info',
+        );
+        this.closeDialog();
+      },
+    });
+  }
+
+  private _editTask() {
+    this._TarefaS.editarTarefa(this.form.value).subscribe({
+      next: () => {
+        this._swalS.basicAlert(
+          'Sucesso!',
+          'Registro alterado com sucesso!',
+          'info',
         );
         this.closeDialog();
       },
