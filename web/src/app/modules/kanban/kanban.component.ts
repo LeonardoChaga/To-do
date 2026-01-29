@@ -21,6 +21,7 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { prioridadeTarefaEnum } from './enum/prioridade-tarefa.enum';
+import { KanbanColumn } from './interface/kanban-column.interface';
 
 @Component({
   selector: 'app-kanban',
@@ -32,6 +33,7 @@ export class KanbanComponent implements OnInit {
   public tarefas: Tarefa[] = [];
   public tarefaStatusEnum = tarefaStatusEnum;
   public comboTarefaStatus = COMBO_TAREFA_STATUS;
+  public kanbanData: KanbanColumn[] = [];
 
   readonly name = model('');
   readonly dialog = inject(MatDialog);
@@ -73,14 +75,15 @@ export class KanbanComponent implements OnInit {
         event.currentIndex,
       );
 
-      const movedTask = currContainer.data[event.previousIndex];
-      movedTask.index = event.currentIndex;
-      movedTask.status = novoStatus;
+      const tasks = currContainer.data.map((t, index) => ({
+        ...t,
+        status: novoStatus,
+        ordem: index,
+      }));
+      this._tarefaS.alterarOrdemTarefa(tasks).subscribe();
     } else {
       const movedTask = prevContainer.data[event.previousIndex];
       movedTask.status = novoStatus;
-
-      this._tarefaS.alterarStatusTarefa(movedTask).subscribe();
 
       transferArrayItem(
         prevContainer.data,
@@ -88,15 +91,15 @@ export class KanbanComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
+
+      this._tarefaS.alterarStatusTarefa(movedTask).subscribe();
+
+      const tasksDestino = currContainer.data.map((t, index) => ({
+        ...t,
+        ordem: index,
+      }));
+      this._tarefaS.alterarOrdemTarefa(tasksDestino).subscribe();
     }
-
-    const tasks = currContainer.data.map((t, index) => ({
-      ...t,
-      status: novoStatus,
-      ordem: index,
-    }));
-
-    this._tarefaS.alterarOrdemTarefa(tasks).subscribe();
   }
 
   getTarefaByStatus(status: tarefaStatusEnum) {
@@ -119,9 +122,24 @@ export class KanbanComponent implements OnInit {
   }
 
   private _getTasks() {
-    this._tarefaS
-      .getTarefas()
-      .subscribe({ next: (res) => (this.tarefas = res) });
+    this._tarefaS.getTarefas().subscribe({
+      next: (res) => {
+        this.tarefas = res;
+        this.organizarColunas();
+      },
+    });
+  }
+
+  organizarColunas() {
+    this.kanbanData = this.comboTarefaStatus.map((coluna) => {
+      return {
+        ...coluna,
+
+        tarefas: this.tarefas
+          .filter((t) => t.status === coluna.id)
+          .sort((a, b) => (a.ordem || 0) - (b.ordem || 0)),
+      };
+    });
   }
 
   get dropLists(): string[] {

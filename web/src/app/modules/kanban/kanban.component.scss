@@ -130,17 +130,21 @@
   .tarefa-card__header {
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 1em;
     align-items: flex-start;
     justify-content: flex-start;
 
+    h1 {
+      font-size: 18px;
+    }
+
     .prioridade-card {
-      padding: 0.2em;
-      border-radius: 15px;
+      padding: 0.1em;
+      border-radius: 5px;
       width: 80px;
       text-align: center;
       color: white;
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 
@@ -150,6 +154,7 @@
       display: flex;
       align-items: center;
       gap: 0.3em;
+      font-size: 15px;
     }
   }
 }

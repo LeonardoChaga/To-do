@@ -14,18 +14,18 @@
   </header>
 
   <div class="kanban-container">
-    <div *ngFor="let coluna of comboTarefaStatus" class="coluna-kanban">
+    <div *ngFor="let coluna of kanbanData" class="coluna-kanban">
       <p>{{ coluna.descricao }}</p>
       <div
         cdkDropList
-        [cdkDropListData]="getTarefaByStatus(coluna.id)"
+        [cdkDropListData]="coluna.tarefas"
         [cdkDropListConnectedTo]="dropLists"
         class="tarefas-list"
         (cdkDropListDropped)="drop($event, coluna.id)"
         [id]="'dropList' + coluna.id"
       >
         <div
-          *ngFor="let tarefa of getTarefaByStatus(coluna.id)"
+          *ngFor="let tarefa of coluna.tarefas"
           class="tarefa-card"
           cdkDrag
           (click)="editTask(tarefa)"
