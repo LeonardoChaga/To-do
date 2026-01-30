@@ -10,6 +10,7 @@ import java.util.*
 import kotlin.random.Random
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.example.To_do.core.security.StringUtils
 import com.example.To_do.entity.Usuario
 import org.springframework.core.env.Environment
 import java.time.OffsetDateTime
@@ -25,12 +26,11 @@ class LoginBusiness(
     suspend fun login(login: LoginDto): RetornoLoginDto {
         var usuario = usuarioRepository.findByEmail(login.loginLowercaseTrim) ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND,
-            "Usuário não encontrado."
+            "Credenciais inválidas."
         )
 
-        if (usuario.senha != login.senha) {
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Senha inválida.")
-        }
+        val senhaValida = StringUtils.verifySha512(login.senha, usuario.senha)
+        if (!senhaValida) throw IllegalArgumentException("Credenciais inválidas.")
 
         if (!usuario.ativo) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário inativo.")
@@ -79,6 +79,31 @@ class LoginBusiness(
                 usuarioDB.id.toString()
             ),
         )
+    }
+
+    suspend fun cadastrarUsuario(usuario: Usuario){
+        val senhaHash = StringUtils.sha512Hex(usuario.senha)
+
+        if (usuarioRepository.findByEmail(usuario.email) != null) {
+            throw IllegalArgumentException("E-mail já cadastrado")
+        }
+
+        if (!StringUtils.isValidEmail(usuario.email)) {
+            throw IllegalArgumentException("E-mail inválido")
+        }
+
+        if (!StringUtils.isValidPassword(usuario.senha)) {
+            throw IllegalArgumentException(
+                "Senha inválida: mínimo 8 " +
+                        "caracteres, 1 maiúscula, 1 número e 1 caractere especial."
+            )
+        }
+
+        usuario.senha = senhaHash
+        usuario.email = usuario.email.trim().lowercase()
+
+        usuarioRepository.save(usuario)
+
     }
 
 

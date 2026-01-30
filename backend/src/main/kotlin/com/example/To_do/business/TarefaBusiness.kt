@@ -24,7 +24,7 @@ class TarefaBusiness (private val tarefaRepository: TarefaRepository) {
     }
 
     suspend fun editTask(tarefa: TarefaDto, usuario: UUID) {
-        val tarefaDB = tarefaRepository.findById(tarefa.id) ?: throw ResponseStatusException(
+        val tarefaDB = tarefaRepository.findById(tarefa.id!!) ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND,
             "Tarefa não encontrada"
         )

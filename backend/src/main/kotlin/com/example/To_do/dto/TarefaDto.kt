@@ -7,7 +7,7 @@ import java.time.Instant
 import java.util.*
 
 data class TarefaDto(
-    val id: UUID,
+    val id: UUID? = UUID.randomUUID(),
     val titulo: String,
     val descricao: String? = null,
     val prioridade: PrioridadeTarefaEnum? = PrioridadeTarefaEnum.BAIXA,

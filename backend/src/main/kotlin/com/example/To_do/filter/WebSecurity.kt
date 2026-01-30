@@ -71,6 +71,7 @@ class WebSecurity(
             }
             authorizeExchange {
                 authorize(ServerWebExchangeMatchers.pathMatchers(HttpMethod.POST, "/usuario/login"), permitAll)
+                authorize(ServerWebExchangeMatchers.pathMatchers(HttpMethod.POST, "/usuario/cadastrar"), permitAll)
                 authorize(anyExchange, authenticated)
             }
             addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)

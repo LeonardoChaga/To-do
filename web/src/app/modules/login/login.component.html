@@ -4,36 +4,112 @@
       <img src="../../../assets/logo.png" alt="" />
       <h1>To-Do</h1>
     </div>
-    <form [formGroup]="form" class="home__form">
-      <div class="home__form-content">
-        <p>
-          <mat-form-field [style.width.px]="400" appearance="outline">
-            <mat-label>E-mail</mat-label>
-            <input
-              formControlName="email"
-              matInput
-              placeholder="Insira seu e-mail"
-            />
-          </mat-form-field>
-        </p>
 
-        <div class="home__form-senha">
-          <p>
-            <mat-form-field [style.width.px]="400" appearance="outline">
-              <mat-label>Senha</mat-label>
-              <input
-                formControlName="senha"
-                matInput
-                placeholder="Insira seu e-mail"
-              />
-            </mat-form-field>
-          </p>
-        </div>
+    <div class="home__form-wrapper" [@modeSwap]="formMode">
+      <ng-container [ngSwitch]="formMode">
+        <form
+          *ngSwitchCase="formModeEnum.LOGIN"
+          [formGroup]="formLogin"
+          class="home__form"
+          (ngSubmit)="login()"
+        >
+          <div class="home__form-content">
+            <p>
+              <mat-form-field [style.width.px]="400" appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input
+                  formControlName="email"
+                  matInput
+                  placeholder="Insira seu e-mail"
+                />
+              </mat-form-field>
+            </p>
 
-        <small>Esqueceu sua senha?</small>
-      </div>
+            <div class="home__form-senha">
+              <p>
+                <mat-form-field [style.width.px]="400" appearance="outline">
+                  <mat-label>Senha</mat-label>
+                  <input
+                    type="password"
+                    formControlName="senha"
+                    matInput
+                    placeholder="Insira sua senha"
+                  />
+                </mat-form-field>
+              </p>
+            </div>
 
-      <div (click)="login()" class="login-button">Entrar</div>
-    </form>
+            <button type="button" class="forgot-password-btn">
+              Esqueceu sua senha?
+            </button>
+          </div>
+
+          <button type="submit" class="login-button">Entrar</button>
+
+          <button
+            type="button"
+            (click)="changeFormMode()"
+            class="create-account-btn"
+          >
+            Crie sua conta!
+          </button>
+        </form>
+
+        <form
+          *ngSwitchCase="formModeEnum.CREATE_ACCOUNT"
+          [formGroup]="formAccountCreation"
+          class="home__form"
+          (ngSubmit)="createAccount()"
+        >
+          <div class="home__form-content">
+            <p>
+              <mat-form-field [style.width.px]="400" appearance="outline">
+                <mat-label>Nome</mat-label>
+                <input
+                  formControlName="nome"
+                  matInput
+                  placeholder="Insira seu nome"
+                />
+              </mat-form-field>
+            </p>
+
+            <p>
+              <mat-form-field [style.width.px]="400" appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input
+                  formControlName="email"
+                  matInput
+                  placeholder="Insira seu e-mail"
+                />
+              </mat-form-field>
+            </p>
+
+            <div class="home__form-senha">
+              <p>
+                <mat-form-field [style.width.px]="400" appearance="outline">
+                  <mat-label>Senha</mat-label>
+                  <input
+                    type="password"
+                    formControlName="senha"
+                    matInput
+                    placeholder="Insira sua senha"
+                  />
+                </mat-form-field>
+              </p>
+            </div>
+
+            <button type="submit" class="login-button">Criar conta</button>
+
+            <button
+              type="button"
+              (click)="changeFormMode()"
+              class="create-account-btn"
+            >
+              Voltar para login
+            </button>
+          </div>
+        </form>
+      </ng-container>
+    </div>
   </div>
 </section>

@@ -6,9 +6,9 @@ import java.util.*
 
 data class Usuario(
     override val id: UUID? = null,
-    val senha: String,
+    var senha: String,
     val nome: String = "",
-    val email: String = "",
+    var email: String = "",
     val refreshToken: String? = null,
     val ativo: Boolean = true,
     val tokenFirebase: String? = null,

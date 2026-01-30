@@ -21,7 +21,7 @@ export class Tarefa {
   prioridade: prioridadeTarefaEnum = prioridadeTarefaEnum.BAIXA;
 
   @JsonProperty()
-  status?: tarefaStatusEnum = undefined;
+  status?: tarefaStatusEnum = tarefaStatusEnum.A_FAZER;
 
   @JsonProperty()
   prazo?: Date = undefined;

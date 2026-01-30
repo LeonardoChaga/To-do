@@ -23,7 +23,7 @@ class UsuarioController (
     @PostMapping("cadastrar")
     @Transactional
     suspend fun cadastrarUsuario(@RequestBody usuario: Usuario) {
-        usuarioRepository.save(usuario)
+        loginBusiness.cadastrarUsuario(usuario)
     }
 
     @PostMapping("login")
