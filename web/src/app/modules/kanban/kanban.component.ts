@@ -1,27 +1,19 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  inject,
-  model,
-  OnInit,
-  signal,
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { FormTarefaComponent } from './components/form-tarefa/form-tarefa.component';
-import { TarefaService } from './services/tarefa.service';
-import { Tarefa } from './models/tarefa.model';
-import {
-  COMBO_TAREFA_STATUS,
-  tarefaStatusEnum,
-} from './enum/tarefa-status.enum';
-import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { Component, inject, model, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { FormTarefaComponent } from './components/form-tarefa/form-tarefa.component';
 import { prioridadeTarefaEnum } from './enum/prioridade-tarefa.enum';
+import {
+  COMBO_TAREFA_STATUS,
+  tarefaStatusEnum,
+} from './enum/tarefa-status.enum';
 import { KanbanColumn } from './interface/kanban-column.interface';
+import { Tarefa } from './models/tarefa.model';
+import { TarefaService } from './services/tarefa.service';
 
 @Component({
   selector: 'app-kanban',
@@ -49,7 +41,7 @@ export class KanbanComponent implements OnInit {
       data: { name: this.name() },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(() => {
       this._getTasks();
     });
   }
@@ -59,7 +51,7 @@ export class KanbanComponent implements OnInit {
       data: { tarefa },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(() => {
       this._getTasks();
     });
   }

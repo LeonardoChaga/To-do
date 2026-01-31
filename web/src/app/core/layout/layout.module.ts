@@ -13,9 +13,17 @@ import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgIconsModule } from '@ng-icons/core';
 import { heroUsers } from '@ng-icons/heroicons/outline';
+import { ClickOutsideDirective } from './sidebar/directives/click-outside.directive';
+import { UserConfigurationsComponent } from './sidebar/components/user-configurations.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [LayoutComponent, SidebarComponent],
+  declarations: [
+    LayoutComponent,
+    SidebarComponent,
+    UserConfigurationsComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -29,6 +37,9 @@ import { heroUsers } from '@ng-icons/heroicons/outline';
     MatListModule,
     MatIconModule,
     NgIconsModule.withIcons({ heroUsers }),
+    ClickOutsideDirective,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   exports: [SidebarComponent, LayoutComponent],
 })

@@ -7,9 +7,40 @@
     opened
   >
     <header class="sidenav__header">
-      <img src="../../../../assets/logo-white.png" alt="logo" />
-      <h1>Olá, {{ usuario?.nome }}!</h1>
+      <div class="sidenav__header-user">
+        <img src="../../../../assets/logo-white.png" alt="logo" />
+        <h1>Olá, {{ usuario?.nome }}!</h1>
+      </div>
+
+      <div
+        appClickOutside
+        (appClickOutside)="configOpen = false"
+        class="config-btn-wrapper"
+      >
+        <button
+          (click)="changeConfigState()"
+          class="config-btn-wrapper__config-btn"
+        >
+          <i class="ri-settings-2-line"></i>
+        </button>
+
+        <div *ngIf="configOpen" class="config-btn-wrapper__config-tray">
+          <button
+            (click)="openConfigurations()"
+            class="config-btn-wrapper__config-tray-settings"
+          >
+            <i class="ri-settings-2-line"></i>
+            <p>Configurações</p>
+          </button>
+
+          <button class="config-btn-wrapper__config-tray-exit">
+            <i class="ri-logout-circle-r-line"></i>
+            <p>Sair</p>
+          </button>
+        </div>
+      </div>
     </header>
+
     <mat-nav-list>
       <a mat-list-item routerLink="/kanban/" routerLinkActive="active"
         ><p>Kanban</p></a

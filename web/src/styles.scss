@@ -5,6 +5,14 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Inter";
+
+  .mat-mdc-dialog-container {
+    .mat-mdc-dialog-inner-container {
+      .mat-mdc-dialog-surface {
+        border-radius: 0 !important;
+      }
+    }
+  }
 }
 
 body {

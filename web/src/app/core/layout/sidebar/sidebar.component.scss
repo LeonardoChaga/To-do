@@ -38,6 +38,8 @@
   .sidenav__header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    margin-right: 1rem;
 
     h1 {
       font-size: 18px;
@@ -45,6 +47,70 @@
     }
     img {
       width: 100px;
+    }
+
+    &-user {
+      display: flex;
+      align-items: center;
+    }
+
+    .config-btn-wrapper {
+      &__config-btn {
+        background: none;
+        color: white;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+
+        &:hover {
+          border-radius: 100%;
+          background: #ffffff40;
+        }
+      }
+
+      &__config-tray {
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        position: absolute;
+        border: solid 1px #cbcbcb;
+        background-color: white;
+        left: 20.5rem;
+        top: 3.8rem;
+
+        &-settings,
+        &-exit {
+          padding: 1rem;
+          background: none;
+          border: none;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          width: 100%;
+          gap: 0.5rem;
+          cursor: pointer;
+
+          i {
+            font-size: 16px;
+          }
+
+          &:hover {
+            background-color: #f1f1f1;
+          }
+        }
+
+        &-settings {
+          border-bottom: 1px solid #cbcbcb;
+        }
+
+        &-exit {
+          color: red;
+        }
+      }
     }
   }
 
@@ -59,4 +125,12 @@
 
 .content {
   padding: 16px;
+}
+
+:host ::ng-deep mat-sidenav {
+  overflow: visible !important;
+}
+
+:host ::ng-deep mat-sidenav-container {
+  overflow: visible !important;
 }

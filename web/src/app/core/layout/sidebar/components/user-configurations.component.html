@@ -1,0 +1,50 @@
+<section class="user-configurations">
+  <header class="user-configurations__header">
+    <h1>Configurações</h1>
+
+    <button
+      class="close-btn"
+      aria-label="Fechar formulário."
+      matTooltip="Fechar formulário."
+      matTooltipClass="tooltip"
+      (click)="closeDialog()"
+    >
+      <i class="ri-close-line"></i>
+    </button>
+  </header>
+
+  <div class="user-configurations__user-card">
+    <div class="user-configurations__user-card-avatar">FS</div>
+
+    <div class="user-configurations__user-card-info">
+      <h1>Fulano da Silva</h1>
+      <small>fulanoemail.com</small>
+    </div>
+  </div>
+
+  <div class="user-configurations__content">
+    <h1>Editar Perfil</h1>
+
+    <form [formGroup]="form">
+      <div class="name-input">
+        <strong>Nome</strong>
+
+        <mat-form-field
+          class="mat-field-compact"
+          [style.width.px]="450"
+          appearance="outline"
+        >
+          <input formControlName="titulo" matInput />
+        </mat-form-field>
+
+        <small>Este nome aparecerá no cabeçalho e nos cards.</small>
+      </div>
+    </form>
+  </div>
+
+  <div class="action-btns">
+    <button matTooltip="Cancelar" class="btn-cancelar">Cancelar</button>
+
+    <button matTooltip="Salvar" class="btn-salvar">Salvar</button>
+  </div>
+</section>
