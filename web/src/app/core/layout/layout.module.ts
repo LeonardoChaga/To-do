@@ -14,9 +14,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgIconsModule } from '@ng-icons/core';
 import { heroUsers } from '@ng-icons/heroicons/outline';
 import { ClickOutsideDirective } from './sidebar/directives/click-outside.directive';
-import { UserConfigurationsComponent } from './sidebar/components/user-configurations.component';
+import { UserConfigurationsComponent } from './sidebar/components/user-configuration-dialog/user-configurations.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { InitialsPipe } from '../../shared/pipes/initials.pipe';
+import { TruncatePipe } from '../../shared/pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { MatInputModule } from '@angular/material/input';
     ClickOutsideDirective,
     MatFormFieldModule,
     MatInputModule,
+    InitialsPipe,
+    TruncatePipe,
   ],
   exports: [SidebarComponent, LayoutComponent],
 })

@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of, switchMap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Auth } from '../../../core/models/auth.model';
+import { USER_STORAGE } from '../../../shared/constants/constants.constant';
 import { StorageService } from '../../../shared/services/storage.service';
 import { Login } from '../model/login.model';
-import { USER_STORAGE } from '../../../shared/constants/constants.constant';
-import { Observable, of, switchMap } from 'rxjs';
 import { Usuario } from '../model/usuario.model';
 
 @Injectable({
@@ -26,6 +26,13 @@ export class LoginService {
 
   createAccount = (obj: Usuario) =>
     this._http.post<Usuario>(`${this.url}/usuario/cadastrar`, obj);
+
+  getUserById(id: string): Observable<Usuario> {
+    return this._http.get<Usuario>(`${this.url}/usuario/${id}`);
+  }
+
+  editUser = (obj: Usuario) =>
+    this._http.put<Usuario>(`${this.url}/usuario/editar`, obj);
 
   getAccessToken(): Observable<Auth> {
     return this._http

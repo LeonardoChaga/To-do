@@ -5,15 +5,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { Login } from './model/login.model';
 import { Auth } from '../../core/models/auth.model';
-import { USER_STORAGE } from '../../shared/constants/constants.constant';
-import { Router } from '@angular/router';
 import { Usuario } from './model/usuario.model';
 import { FormModeEnum } from './enum/home-form-mode.enum';
 import { SwalAlertService } from '../../shared/services/swal.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { StorageService } from '../../shared/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -40,11 +40,12 @@ export class LoginComponent implements OnInit {
   public formModeEnum = FormModeEnum;
 
   constructor(
-    private _fb: FormBuilder,
-    private _loginS: LoginService,
-    private _router: Router,
-    private _swalS: SwalAlertService,
-    private _cdr: ChangeDetectorRef,
+    private readonly _fb: FormBuilder,
+    private readonly _loginS: LoginService,
+    private readonly _router: Router,
+    private readonly _swalS: SwalAlertService,
+    private readonly _cdr: ChangeDetectorRef,
+    private readonly _storageS: StorageService,
   ) {}
 
   ngOnInit(): void {
@@ -52,48 +53,58 @@ export class LoginComponent implements OnInit {
     this.formAccountCreation = this._fb.group(new Usuario());
   }
 
-  login() {
-    if (this.formLogin.valid) {
-      this._loginS.login(this.formLogin.value).subscribe({
-        next: (res: Auth) => {
-          sessionStorage.setItem(USER_STORAGE, JSON.stringify(res));
-
-          this._router.navigate(['/kanban']);
-        },
-        error: (err) => {
-          this._swalS.basicAlert('Aviso', err.error.message, 'warning');
-        },
-      });
+  login(): void {
+    if (!this.formLogin.valid) {
+      this.formLogin.markAllAsTouched();
+      return;
     }
-    this.formLogin.markAllAsTouched();
+
+    this._loginS.login(this.formLogin.value).subscribe({
+      next: (res: Auth) => {
+        this._storageS.salvarUsuarioInfoStorage(res);
+        this._router.navigate(['/kanban']);
+      },
+      error: (err) => {
+        this._swalS.basicAlert(
+          'Aviso',
+          err?.error?.message ?? 'Erro',
+          'warning',
+        );
+      },
+    });
   }
 
-  createAccount() {
-    if (this.formAccountCreation.valid) {
-      this._loginS.createAccount(this.formAccountCreation.value).subscribe({
-        next: () => {
-          this._swalS
-            .basicAlert('Sucesso!', 'Usuário salvo com sucesso!', 'info')
-            .then((res) => {
-              if (res) {
-                this.formMode = FormModeEnum.LOGIN;
-                this._cdr.detectChanges();
-              }
-            });
-        },
-        error: (err) => {
-          this._swalS.basicAlert('Aviso', err.error.message, 'warning');
-        },
-      });
+  createAccount(): void {
+    if (!this.formAccountCreation.valid) {
+      this.formAccountCreation.markAllAsTouched();
+      return;
     }
-    this.formAccountCreation.markAllAsTouched();
+
+    this._loginS.createAccount(this.formAccountCreation.value).subscribe({
+      next: () => {
+        this._swalS
+          .basicAlert('Sucesso!', 'Usuário salvo com sucesso!', 'info')
+          .then((res) => {
+            if (res) {
+              this.formMode = FormModeEnum.LOGIN;
+              this._cdr.detectChanges();
+            }
+          });
+      },
+      error: (err) => {
+        this._swalS.basicAlert(
+          'Aviso',
+          err?.error?.message ?? 'Erro',
+          'warning',
+        );
+      },
+    });
   }
 
-  changeFormMode() {
-    if (this.formMode == FormModeEnum.LOGIN) {
-      this.formMode = FormModeEnum.CREATE_ACCOUNT;
-    } else {
-      this.formMode = FormModeEnum.LOGIN;
-    }
+  changeFormMode(): void {
+    this.formMode =
+      this.formMode === FormModeEnum.LOGIN
+        ? FormModeEnum.CREATE_ACCOUNT
+        : FormModeEnum.LOGIN;
   }
 }

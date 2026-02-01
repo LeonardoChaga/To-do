@@ -1,16 +1,10 @@
-import {
-  Component,
-  HostListener,
-  inject,
-  model,
-  OnInit,
-  signal,
-} from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { StorageService } from '../../../shared/services/storage.service';
 import { Usuario } from '../../../modules/login/model/usuario.model';
-import { MatDialog } from '@angular/material/dialog';
-import { UserConfigurationsComponent } from './components/user-configurations.component';
+import { UserConfigurationsComponent } from './components/user-configuration-dialog/user-configurations.component';
+import { LoginService } from '../../../modules/login/services/login.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,26 +12,41 @@ import { UserConfigurationsComponent } from './components/user-configurations.co
   styleUrls: ['./sidebar.component.scss'],
   standalone: false,
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   public usuario?: Usuario;
-  public configOpen: boolean = false;
+  public configOpen = false;
 
-  readonly name = model('');
+  private readonly _subs = new Subscription();
   readonly dialog = inject(MatDialog);
 
-  constructor(private _storageS: StorageService) {}
+  constructor(
+    private readonly _storageS: StorageService,
+    private _loginS: LoginService,
+  ) {}
 
   ngOnInit(): void {
-    this.usuario = this._storageS.getUsuarioInfo();
+    this._subs.add(
+      this._storageS.user$.subscribe((u: Usuario) => (this.usuario = u)),
+    );
   }
 
-  changeConfigState() {
+  ngOnDestroy(): void {
+    this._subs.unsubscribe();
+  }
+
+  changeConfigState(): void {
     this.configOpen = !this.configOpen;
   }
 
-  openConfigurations() {
+  openConfigurations(): void {
+    this.configOpen = false;
+
     this.dialog.open(UserConfigurationsComponent, {
-      data: { name: this.name() },
+      data: this.usuario,
     });
+  }
+
+  logOut() {
+    this._loginS.logout();
   }
 }

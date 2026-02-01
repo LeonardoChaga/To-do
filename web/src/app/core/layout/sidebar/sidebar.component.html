@@ -9,7 +9,9 @@
     <header class="sidenav__header">
       <div class="sidenav__header-user">
         <img src="../../../../assets/logo-white.png" alt="logo" />
-        <h1>Olá, {{ usuario?.nome }}!</h1>
+        <h1 [title]="usuario?.nome">
+          Olá, {{ usuario?.nome | truncate: 30 : "…" }}!
+        </h1>
       </div>
 
       <div
@@ -33,7 +35,10 @@
             <p>Configurações</p>
           </button>
 
-          <button class="config-btn-wrapper__config-tray-exit">
+          <button
+            (click)="logOut()"
+            class="config-btn-wrapper__config-tray-exit"
+          >
             <i class="ri-logout-circle-r-line"></i>
             <p>Sair</p>
           </button>
@@ -42,9 +47,9 @@
     </header>
 
     <mat-nav-list>
-      <a mat-list-item routerLink="/kanban/" routerLinkActive="active"
-        ><p>Kanban</p></a
-      >
+      <a mat-list-item routerLink="/kanban/" routerLinkActive="active">
+        <p>Kanban</p>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
 

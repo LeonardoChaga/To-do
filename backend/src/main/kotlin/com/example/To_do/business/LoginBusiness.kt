@@ -11,6 +11,7 @@ import kotlin.random.Random
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.example.To_do.core.security.StringUtils
+import com.example.To_do.dto.EditarUsuarioDto
 import com.example.To_do.entity.Usuario
 import org.springframework.core.env.Environment
 import java.time.OffsetDateTime
@@ -104,6 +105,15 @@ class LoginBusiness(
 
         usuarioRepository.save(usuario)
 
+    }
+
+    suspend fun editarUsuario(usuario: EditarUsuarioDto) {
+        val usuarioDB = usuarioRepository.findById(usuario.id!!) ?: throw ResponseStatusException(
+            HttpStatus.NOT_FOUND,
+            "Usuário não encontrado"
+        )
+
+        usuarioRepository.save(usuario.updateUsuario(usuarioDB, usuario.id))
     }
 
 

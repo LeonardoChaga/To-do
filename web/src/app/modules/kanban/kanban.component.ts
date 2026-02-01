@@ -117,12 +117,12 @@ export class KanbanComponent implements OnInit {
     this._tarefaS.getTarefas().subscribe({
       next: (res) => {
         this.tarefas = res;
-        this.organizarColunas();
+        this._organizarColunas();
       },
     });
   }
 
-  organizarColunas() {
+  private _organizarColunas() {
     this.kanbanData = this.comboTarefaStatus.map((coluna) => {
       return {
         ...coluna,

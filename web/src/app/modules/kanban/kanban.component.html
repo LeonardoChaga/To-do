@@ -39,8 +39,12 @@
             >
               {{ tarefa.prioridade | tarefaPrioridade }}
             </div>
-            <h1>{{ tarefa.titulo }}</h1>
+
+            <h1 class="title" [title]="tarefa.titulo">
+              {{ tarefa.titulo | truncate: 40 : "..." }}
+            </h1>
           </header>
+
           <div class="tarefa-card__content">
             <div class="prazo">
               <i class="ri-timer-2-line"></i>

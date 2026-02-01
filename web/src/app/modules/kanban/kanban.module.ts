@@ -17,6 +17,7 @@ import { KanbanComponent } from './kanban.component';
 import { KanbanRoutingModule } from './kanban.routing';
 import { tarefaPrioridadePipe } from './pipe/tarefa-prioridade.pipe';
 import { MatDividerModule } from '@angular/material/divider';
+import { TruncatePipe } from '../../shared/pipes/truncate.pipe';
 
 @NgModule({
   declarations: [KanbanComponent, FormTarefaComponent],
@@ -39,6 +40,7 @@ import { MatDividerModule } from '@angular/material/divider';
     DragDropModule,
     tarefaPrioridadePipe,
     MatDividerModule,
+    TruncatePipe,
   ],
   exports: [KanbanComponent, FormTarefaComponent],
 })
