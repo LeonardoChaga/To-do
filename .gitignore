@@ -91,3 +91,9 @@ application-*.properties
 Thumbs.db
 ehthumbs.db
 desktop.ini
+
+### Cypress ###
+web/cypress/videos
+web/cypress/screenshots
+web/.env
+web/cypress/fixtures
