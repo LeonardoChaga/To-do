@@ -16,8 +16,11 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022"
+    "module": "ES2022",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node"]
   },
+  "include": ["**/*.ts", "../node_modules/cypress", "support/index.d.ts", "script.js"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

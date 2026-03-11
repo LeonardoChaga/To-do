@@ -18,6 +18,7 @@
               <mat-form-field [style.width.px]="400" appearance="outline">
                 <mat-label>E-mail</mat-label>
                 <input
+                  data-cy="email-input"
                   formControlName="email"
                   matInput
                   placeholder="Insira seu e-mail"
@@ -30,6 +31,7 @@
                 <mat-form-field [style.width.px]="400" appearance="outline">
                   <mat-label>Senha</mat-label>
                   <input
+                    data-cy="password-input"
                     type="password"
                     formControlName="senha"
                     matInput
@@ -39,12 +41,14 @@
               </p>
             </div>
 
-            <button type="button" class="forgot-password-btn">
+            <button type="button" class="forgot-password-btn" data-cy="forgot-password-btn">
               Esqueceu sua senha?
             </button>
           </div>
 
-          <button type="submit" class="login-button">Entrar</button>
+          <button type="submit" class="login-button" data-cy="login-button">
+            Entrar
+          </button>
 
           <button
             type="button"
