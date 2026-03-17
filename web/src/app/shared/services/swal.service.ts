@@ -24,6 +24,9 @@ export class SwalAlertService {
       icon,
       allowOutsideClick: false,
       allowEscapeKey: false,
+      didOpen: () => {
+        swal.getConfirmButton()?.setAttribute('data-cy', 'swal-confirm-button');
+      },
     });
   }
 
